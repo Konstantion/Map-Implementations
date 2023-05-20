@@ -15,7 +15,7 @@ abstract class AbstractImmutableDictionary<K, V> extends AbstractDictionary<K, V
 
     static final int EXPAND_FACTOR = 2;
     @SuppressWarnings("unchcked")
-    public static final AbstractImmutableDictionary<Object, Object> EMPTY_DICTIONARY = DictionaryN.EMPTY();
+    public static final AbstractImmutableDictionary<Object, Object> EMPTY_DICTIONARY = DictionaryN.empty();
 
 
     @Override
@@ -52,13 +52,13 @@ abstract class AbstractImmutableDictionary<K, V> extends AbstractDictionary<K, V
 
         final int size;
 
-        private static DictionaryN<Object, Object> SINGLE = null;
+        private static DictionaryN<Object, Object> LEGENDARY_PROGRAMMING_ANTI_PATTERN = null;
 
-        public static DictionaryN<Object, Object> EMPTY() {
-            if (SINGLE == null) {
-                SINGLE = new DictionaryN<>();
+        public static DictionaryN<Object, Object> empty() {
+            if (LEGENDARY_PROGRAMMING_ANTI_PATTERN == null) {
+                LEGENDARY_PROGRAMMING_ANTI_PATTERN = new DictionaryN<>();
             }
-            return SINGLE;
+            return LEGENDARY_PROGRAMMING_ANTI_PATTERN;
         }
 
         /**
@@ -81,7 +81,7 @@ abstract class AbstractImmutableDictionary<K, V> extends AbstractDictionary<K, V
             int len = EXPAND_FACTOR * input.length;
             // additional check, put 1 to lower bit on len
             // than do bitwise & operator with bitwise flipped 1
-            // bitwise flipped 1 guarantees 0 int 1st bit 00..01 => 11..10
+            // bitwise flipped 1 guarantees 0 in 1st bit 00..01 => 11..10
             // with bitwise & number is guarantied to be even
             len = (len + 1) & ~1;
             table = new Object[len];
