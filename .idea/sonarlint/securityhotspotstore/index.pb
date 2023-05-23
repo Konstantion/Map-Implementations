@@ -1,8 +1,6 @@
 
 9
 	README.md,8\e\8ec9a00bfd09b3190ac6b22251dbb1aa95a0579d
-A
-core/build.gradle,9\1\918ca359602392354123b7d3b63264baf7ea9dde
 7
 gradlew,5\b\5bbfa66edb4db3c7c33c5181f43510990d3307f9
 X
@@ -19,8 +17,6 @@ s
 Ccore/src/main/java/org/example/dictionaries/AbstractDictionary.java,3\1\315b724b22a938ea6af4c1fc7c54b9700739476e
 o
 ?core/src/main/java/org/example/dictionaries/TrieDictionary.java,f\e\fef0f54b7c37701ee0a13dabc19b115d09d1c400
-Å
-Q.idea/sonarlint/securityhotspotstore/9/1/918ca359602392354123b7d3b63264baf7ea9dde,d\3\d39524d76443a769fcdf155c905365cbfe960365
 p
 @core/src/main/java/org/example/dictionaries/MultiDictionary.java,d\e\de4a482c3addab145d772b2e467c7cc475428a9c
 w
@@ -28,16 +24,16 @@ G.idea/sonarlint/issuestore/f/b/fbe448ebfc3eb2d4e308f6b8b043666f5b57235e,5\2\52
 Å
 Q.idea/sonarlint/securityhotspotstore/f/b/fbe448ebfc3eb2d4e308f6b8b043666f5b57235e,2\a\2a357145b04aeee0545d8bc616c6d89a975ff771
 w
-G.idea/sonarlint/issuestore/9/1/918ca359602392354123b7d3b63264baf7ea9dde,b\2\b23aa027aef8f8b96f50d0aafd617a753c76536b
-w
 G.idea/sonarlint/issuestore/8/e/8ec9a00bfd09b3190ac6b22251dbb1aa95a0579d,b\4\b4a0b63ce8560bbc5de0f9995c20cc861dc2adb3
-t
-Dcore/src/main/java/org/example/dictionaries/NavigableDictionary.java,5\5\55f9a5f8bd8bca7935e2affb3b4b138b8713e967
 w
 G.idea/sonarlint/issuestore/5/b/5bbfa66edb4db3c7c33c5181f43510990d3307f9,f\7\f7819ea138c33fec28e7e536cb2de34db38fc121
-o
-?core/src/main/java/org/example/dictionaries/EnumDictionary.java,6\b\6bc095a9bfc34ceaf7e261cfe3ddc1439148fd4f
 w
 Gcore/src/main/java/org/example/dictionaries/entries/KeyValueHolder.java,6\0\6089c9266f27577b516d801f452c5ac9a0817eb2
-^
-.core/src/main/java/org/example/enums/Role.java,a\5\a54a5628d4e8d0305f787594af926128914517ed
+|
+Lcore/src/main/java/org/example/dictionaries/AbstractImmutableDictionary.java,4\d\4d7cde5fee0319d64f2cd51672f57c57364f45e2
+k
+;core/src/main/java/org/example/dictionaries/Dictionary.java,8\a\8a02b2e573fbc7e318304faf3bfa71833dffb676
+o
+?core/src/main/java/org/example/dictionaries/TreeDictionary.java,f\8\f8641ffae203507735d473b66c6a42eb38234734
+o
+?core/src/main/java/org/example/dictionaries/HashDictionary.java,5\2\5261938fe6155dc022952bb670b37d4623ee215b

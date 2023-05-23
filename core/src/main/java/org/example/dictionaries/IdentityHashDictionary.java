@@ -23,7 +23,7 @@ public class IdentityHashDictionary<K, V> extends AbstractDictionary<K, V> imple
             throw new IllegalArgumentException("Capacity must be a positive number");
         }
         int tableSize = calculateTableSize(capacity);
-        this.table = (Entry<K, V>[]) new Entry[tableSize];
+        this.table = new Entry[tableSize];
         this.size = 0;
     }
 
