@@ -16,6 +16,10 @@ class TimeComplexityTest {
     int maxPow = 16;
     int minPow = 4;
 
+    // On my PC
+    // HashDictionary: 4567
+    //
+    // HashMap: 4423
     @Test
     void hash_dictionary_vs_hash_map_with_strings() {
         long start, end;
@@ -75,6 +79,11 @@ class TimeComplexityTest {
         System.out.printf("HashMap: %s%n%n", end - start);
     }
 
+
+    // On my PC
+    // IdentityHashDictionary: 953
+    //
+    // HashMap: 17
     @Test
     void identity_hash_dictionary_vs_hash_map_with_strings() {
         long start, end;
@@ -134,6 +143,11 @@ class TimeComplexityTest {
         System.out.printf("HashMap: %s%n%n", end - start);
     }
 
+
+    // On my PC
+    // EnumDictionary: 4211
+    //
+    // HashMap: 5474
     @Test
     void enum_dictionary_vs_hash_map_with_strings() {
         long start, end;
@@ -195,6 +209,10 @@ class TimeComplexityTest {
         System.out.printf("HashMap: %s%n%n", end - start);
     }
 
+    // On my PC
+    // TreeDictionary: 6972
+    //
+    // TreeMap: 5447
     @Test
     void tree_dictionary_vs_tree_map_with_strings() {
         long start, end;
@@ -218,7 +236,7 @@ class TimeComplexityTest {
             );
         }
 
-        for (int i = 0; i < millions(0); i++) {
+        for (int i = 0; i < millions(1); i++) {
             treeDictionary.get(myKeys[0]);
             treeDictionary.remove(myKeys[2]);
             treeDictionary.get(myKeys[2]);
@@ -240,7 +258,7 @@ class TimeComplexityTest {
                     i
             );
         }
-        for (int i = 0; i < millions(0); i++) {
+        for (int i = 0; i < millions(1); i++) {
             treeMap.get(myKeys[0]);
             treeMap.remove(myKeys[2]);
             treeMap.get(myKeys[2]);
