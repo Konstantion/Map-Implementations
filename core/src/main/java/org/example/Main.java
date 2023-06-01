@@ -45,7 +45,7 @@ public class Main {
         System.out.printf("Lower: tree = %s, array = %s%n", treeLowerKey, arrayLowerKey);
         System.out.printf("Higher: tree = %s, array = %s%n", treeHigherKey, arrayHigherKey);
 
-        // Abstract method example,
+        // Abstract methods example,
         // note that the methods are not implemented in the inheritor
         IDictionary<Integer, String> dictionary = new TreeDictionary<>();
         final int ten = 10;
@@ -68,6 +68,45 @@ public class Main {
         dictionary.replace(1, "1");
 
         System.out.println(dictionary);
+
+        //Immutable dictionary, not all methods are in example
+        //but result would be similar
+        @SuppressWarnings("unchecked")
+        IDictionary<String, String> immutable = IDictionary.ofEntries(
+                IDictionary.entry("hello", "hello"),
+                IDictionary.entry(",", ","),
+                IDictionary.entry("world", "world")
+        );
+
+        try {
+            immutable.put("who", "who");
+        } catch (UnsupportedOperationException e) {
+            System.out.println("You can't put in immutable dictionary");
+        }
+
+        try {
+            immutable.remove("who");
+        } catch (UnsupportedOperationException e) {
+            System.out.println("You can't remove in immutable dictionary");
+        }
+
+        try {
+            immutable.computeIfAbsent("who", null);
+        } catch (UnsupportedOperationException e) {
+            System.out.println("You can't computeIfAbsent in immutable dictionary");
+        }
+
+        try {
+            immutable.computeIfPresent("who", null);
+        } catch (UnsupportedOperationException e) {
+            System.out.println("You can't computeIfPresent in immutable dictionary");
+        }
+
+        try {
+            immutable.remove("who", null);
+        } catch (UnsupportedOperationException e) {
+            System.out.println("You can't remove in immutable dictionary");
+        }
     }
 
     @SuppressWarnings("unchecked")
