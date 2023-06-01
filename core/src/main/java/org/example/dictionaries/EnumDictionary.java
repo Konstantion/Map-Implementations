@@ -9,7 +9,7 @@ import java.util.Set;
 import java.util.function.BiFunction;
 import java.util.function.Function;
 
-public class EnumDictionary<K extends Enum<K>, V> extends AbstractDictionary<K, V> implements Dictionary<K, V> {
+public class EnumDictionary<K extends Enum<K>, V> extends AbstractDictionary<K, V> implements IDictionary<K, V> {
     private final Class<K> keyType;
     private final EnumDictionary.InternalDictionary<K, V> dictionary;
 
@@ -58,7 +58,7 @@ public class EnumDictionary<K extends Enum<K>, V> extends AbstractDictionary<K, 
         return dictionary.remove(key);
     }
 
-    public Set<Entry<K, V>> entrySet() {
+    public Set<IEntry<K, V>> entrySet() {
         return dictionary.entrySet();
     }
 
@@ -158,8 +158,8 @@ public class EnumDictionary<K extends Enum<K>, V> extends AbstractDictionary<K, 
         }
 
         @Override
-        public Set<Dictionary.Entry<K,V>> entrySet() {
-            Set<Dictionary.Entry<K,V>> entrySet = new HashSet<>();
+        public Set<IEntry<K,V>> entrySet() {
+            Set<IEntry<K,V>> entrySet = new HashSet<>();
             for(int i = 0; i < keyUniverse.length; i++) {
                 if(values[i] != null)
                     entrySet.add(new KeyValueHolder(keyUniverse[i], values[i]));

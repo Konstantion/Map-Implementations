@@ -5,8 +5,8 @@ import java.util.function.BiFunction;
 import java.util.function.Function;
 
 public class SortedArrayNavigableDictionary<K extends Comparable<K>, V> extends AbstractDictionary<K, V>
-        implements NavigableDictionary<K, V> {
-    private final List<Entry<K, V>> entries;
+        implements INavigableDictionary<K, V> {
+    private final List<IEntry<K, V>> entries;
 
     public SortedArrayNavigableDictionary() {
         this.entries = new ArrayList<>();
@@ -24,7 +24,7 @@ public class SortedArrayNavigableDictionary<K extends Comparable<K>, V> extends 
 
     @Override
     public boolean containsValue(V value) {
-        for (Entry<K, V> entry : entries) {
+        for (IEntry<K, V> entry : entries) {
             if (Objects.equals(entry.getValue(), value)) {
                 return true;
             }
@@ -35,7 +35,7 @@ public class SortedArrayNavigableDictionary<K extends Comparable<K>, V> extends 
     @Override
     public Collection<V> values() {
         List<V> values = new ArrayList<>();
-        for (Entry<K, V> entry : entries) {
+        for (IEntry<K, V> entry : entries) {
             values.add(entry.getValue());
         }
         return values;
@@ -44,7 +44,7 @@ public class SortedArrayNavigableDictionary<K extends Comparable<K>, V> extends 
     @Override
     public Collection<K> keys() {
         List<K> keys = new ArrayList<>();
-        for (Entry<K, V> entry : entries) {
+        for (IEntry<K, V> entry : entries) {
             keys.add(entry.getKey());
         }
         return keys;
@@ -54,7 +54,7 @@ public class SortedArrayNavigableDictionary<K extends Comparable<K>, V> extends 
     public V put(K key, V value) {
         int index = binarySearch(key);
         if (index >= 0) {
-            Entry<K, V> entry = entries.get(index);
+            IEntry<K, V> entry = entries.get(index);
             V oldValue = entry.getValue();
             entry.setValue(value);
             return oldValue;
@@ -89,7 +89,7 @@ public class SortedArrayNavigableDictionary<K extends Comparable<K>, V> extends 
     public V remove(K key) {
         int index = binarySearch(key);
         if (index >= 0) {
-            Entry<K, V> entry = entries.remove(index);
+            IEntry<K, V> entry = entries.remove(index);
             return entry.getValue();
         }
         return null;
@@ -106,7 +106,7 @@ public class SortedArrayNavigableDictionary<K extends Comparable<K>, V> extends 
     }
 
     @Override
-    public Set<Entry<K, V>> entrySet() {
+    public Set<IEntry<K, V>> entrySet() {
         return new HashSet<>(entries);
     }
 
@@ -114,7 +114,7 @@ public class SortedArrayNavigableDictionary<K extends Comparable<K>, V> extends 
     public V replace(K key, V value) {
         int index = binarySearch(key);
         if (index >= 0) {
-            Entry<K, V> entry = entries.get(index);
+            IEntry<K, V> entry = entries.get(index);
             V oldValue = entry.getValue();
             entry.setValue(value);
             return oldValue;
@@ -148,7 +148,7 @@ public class SortedArrayNavigableDictionary<K extends Comparable<K>, V> extends 
     public V computeIfPresent(K key, BiFunction<? super K, ? super V, ? extends V> remappingFunction) {
         int index = binarySearch(key);
         if (index >= 0) {
-            Entry<K, V> entry = entries.get(index);
+            IEntry<K, V> entry = entries.get(index);
             V oldValue = entry.getValue();
             V newValue = remappingFunction.apply(key, oldValue);
             if (newValue != null) {
@@ -163,29 +163,25 @@ public class SortedArrayNavigableDictionary<K extends Comparable<K>, V> extends 
     }
 
     @Override
-    public Entry<K, V> lowerEntry(K key) {
+    public IEntry<K, V> lowerEntry(K key) {
         int index = binarySearch(key);
-        if (index >= 0) {
-            if (index > 0) {
-                return entries.get(index - 1);
-            }
-        } else {
+        if (index < 0) {
             index = -(index + 1);
-            if (index > 0) {
-                return entries.get(index - 1);
-            }
+        }
+        if (index > 0) {
+            return entries.get(index - 1);
         }
         return null;
     }
 
     @Override
     public K lowerKey(K key) {
-        Entry<K, V> entry = lowerEntry(key);
+        IEntry<K, V> entry = lowerEntry(key);
         return entry != null ? entry.getKey() : null;
     }
 
     @Override
-    public Entry<K, V> floorEntry(K key) {
+    public IEntry<K, V> floorEntry(K key) {
         int index = binarySearch(key);
         if (index >= 0) {
             return entries.get(index);
@@ -200,12 +196,12 @@ public class SortedArrayNavigableDictionary<K extends Comparable<K>, V> extends 
 
     @Override
     public K floorKey(K key) {
-        Entry<K, V> entry = floorEntry(key);
+        IEntry<K, V> entry = floorEntry(key);
         return entry != null ? entry.getKey() : null;
     }
 
     @Override
-    public Entry<K, V> ceilingEntry(K key) {
+    public IEntry<K, V> ceilingEntry(K key) {
         int index = binarySearch(key);
         if (index >= 0) {
             return entries.get(index);
@@ -220,12 +216,12 @@ public class SortedArrayNavigableDictionary<K extends Comparable<K>, V> extends 
 
     @Override
     public K ceilingKey(K key) {
-        Entry<K, V> entry = ceilingEntry(key);
+        IEntry<K, V> entry = ceilingEntry(key);
         return entry != null ? entry.getKey() : null;
     }
 
     @Override
-    public Entry<K, V> higherEntry(K key) {
+    public IEntry<K, V> higherEntry(K key) {
         int index = binarySearch(key);
         if (index >= 0) {
             if (index < entries.size() - 1) {
@@ -242,16 +238,16 @@ public class SortedArrayNavigableDictionary<K extends Comparable<K>, V> extends 
 
     @Override
     public K higherKey(K key) {
-        Entry<K, V> entry = higherEntry(key);
+        IEntry<K, V> entry = higherEntry(key);
         return entry != null ? entry.getKey() : null;
     }
 
     private int binarySearch(K key) {
         return Collections.binarySearch(entries, new SimpleEntry<>(key, null),
-                Comparator.comparing(Entry::getKey));
+                Comparator.comparing(IEntry::getKey));
     }
 
-    private static class SimpleEntry<K, V> implements Entry<K, V> {
+    private static class SimpleEntry<K, V> implements IEntry<K, V> {
         private final K key;
         private V value;
 

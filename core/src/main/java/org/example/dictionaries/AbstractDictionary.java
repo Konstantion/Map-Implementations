@@ -6,19 +6,19 @@ import java.util.Objects;
 import java.util.function.BiFunction;
 import java.util.function.Function;
 
-public abstract class AbstractDictionary<K, V> implements Dictionary<K, V> {
+public abstract class AbstractDictionary<K, V> implements IDictionary<K, V> {
 
     @Override
     public Collection<V> values() {
         return entrySet().stream()
-                .map(Entry::getValue)
+                .map(IEntry::getValue)
                 .toList();
     }
 
     @Override
     public Collection<K> keys() {
         return entrySet().stream()
-                .map(Entry::getKey)
+                .map(IEntry::getKey)
                 .toList();
     }
 
@@ -29,16 +29,16 @@ public abstract class AbstractDictionary<K, V> implements Dictionary<K, V> {
 
     @Override
     public boolean containsKey(K key) {
-        Iterator<Dictionary.Entry<K, V>> i = entrySet().iterator();
+        Iterator<IEntry<K, V>> i = entrySet().iterator();
         if (key == null) {
             while (i.hasNext()) {
-                Dictionary.Entry<K, V> e = i.next();
+                IEntry<K, V> e = i.next();
                 if (e.getKey() == null)
                     return true;
             }
         } else {
             while (i.hasNext()) {
-                Dictionary.Entry<K, V> e = i.next();
+                IEntry<K, V> e = i.next();
                 if (key.equals(e.getKey()))
                     return true;
             }
@@ -59,16 +59,16 @@ public abstract class AbstractDictionary<K, V> implements Dictionary<K, V> {
 
     @Override
     public boolean containsValue(V value) {
-        Iterator<Dictionary.Entry<K, V>> i = entrySet().iterator();
+        Iterator<IEntry<K, V>> i = entrySet().iterator();
         if (value == null) {
             while (i.hasNext()) {
-                Dictionary.Entry<K, V> e = i.next();
+                IEntry<K, V> e = i.next();
                 if (e.getValue() == null)
                     return true;
             }
         } else {
             while (i.hasNext()) {
-                Dictionary.Entry<K, V> e = i.next();
+                IEntry<K, V> e = i.next();
                 if (value.equals(e.getValue()))
                     return true;
             }
@@ -83,16 +83,16 @@ public abstract class AbstractDictionary<K, V> implements Dictionary<K, V> {
 
     @Override
     public V get(K key) {
-        Iterator<Dictionary.Entry<K, V>> i = entrySet().iterator();
+        Iterator<IEntry<K, V>> i = entrySet().iterator();
         if (key == null) {
             while (i.hasNext()) {
-                Dictionary.Entry<K, V> e = i.next();
+                IEntry<K, V> e = i.next();
                 if (e.getKey() == null)
                     return e.getValue();
             }
         } else {
             while (i.hasNext()) {
-                Dictionary.Entry<K, V> e = i.next();
+                IEntry<K, V> e = i.next();
                 if (key.equals(e.getKey()))
                     return e.getValue();
             }
@@ -115,17 +115,17 @@ public abstract class AbstractDictionary<K, V> implements Dictionary<K, V> {
 
     @Override
     public V remove(K key) {
-        Iterator<Dictionary.Entry<K, V>> i = entrySet().iterator();
-        Dictionary.Entry<K, V> correctEntry = null;
+        Iterator<IEntry<K, V>> i = entrySet().iterator();
+        IEntry<K, V> correctEntry = null;
         if (key == null) {
             while (correctEntry == null && i.hasNext()) {
-                Dictionary.Entry<K, V> e = i.next();
+                IEntry<K, V> e = i.next();
                 if (e.getKey() == null)
                     correctEntry = e;
             }
         } else {
             while (correctEntry == null && i.hasNext()) {
-                Dictionary.Entry<K, V> e = i.next();
+                IEntry<K, V> e = i.next();
                 if (key.equals(e.getKey()))
                     correctEntry = e;
             }
@@ -196,7 +196,7 @@ public abstract class AbstractDictionary<K, V> implements Dictionary<K, V> {
     public String toString() {
         StringBuilder sb = new StringBuilder();
         sb.append("{");
-        for (Entry<K, V> entry : entrySet()) {
+        for (IEntry<K, V> entry : entrySet()) {
             if (entry != null) {
                 sb.append(entry.getKey()).append("=").append(entry.getValue()).append(", ");
             }

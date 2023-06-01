@@ -6,7 +6,7 @@ import java.util.Objects;
 import java.util.Set;
 
 public class TreeDictionary<K extends Comparable<K>, V> extends AbstractDictionary<K,V>
-        implements NavigableDictionary<K, V> {
+        implements INavigableDictionary<K, V> {
     private Node<K, V> root;
     private final Comparator<? super K> comparator;
     private int size;
@@ -15,7 +15,7 @@ public class TreeDictionary<K extends Comparable<K>, V> extends AbstractDictiona
     private static final boolean BLACK = false;
     private V prevPut = null;
 
-    private static class Node<K, V> implements Dictionary.Entry<K, V> {
+    private static class Node<K, V> implements IEntry<K, V> {
         private K key;
         private V value;
         private Node<K, V> left;
@@ -297,7 +297,7 @@ public class TreeDictionary<K extends Comparable<K>, V> extends AbstractDictiona
     }
 
     @Override
-    public Dictionary.Entry<K, V> lowerEntry(K key) {
+    public IEntry<K, V> lowerEntry(K key) {
         return lowerNode(root, key);
     }
 
@@ -317,12 +317,12 @@ public class TreeDictionary<K extends Comparable<K>, V> extends AbstractDictiona
 
     @Override
     public K lowerKey(K key) {
-        Dictionary.Entry<K, V> entry = lowerEntry(key);
+        IEntry<K, V> entry = lowerEntry(key);
         return entry != null ? entry.getKey() : null;
     }
 
     @Override
-    public Dictionary.Entry<K, V> floorEntry(K key) {
+    public IEntry<K, V> floorEntry(K key) {
         return floorNode(root, key);
     }
 
@@ -344,12 +344,12 @@ public class TreeDictionary<K extends Comparable<K>, V> extends AbstractDictiona
 
     @Override
     public K floorKey(K key) {
-        Dictionary.Entry<K, V> entry = floorEntry(key);
+        IEntry<K, V> entry = floorEntry(key);
         return entry != null ? entry.getKey() : null;
     }
 
     @Override
-    public Dictionary.Entry<K, V> ceilingEntry(K key) {
+    public IEntry<K, V> ceilingEntry(K key) {
         return ceilingNode(root, key);
     }
 
@@ -371,18 +371,18 @@ public class TreeDictionary<K extends Comparable<K>, V> extends AbstractDictiona
 
     @Override
     public K ceilingKey(K key) {
-        Dictionary.Entry<K, V> entry = ceilingEntry(key);
+        IEntry<K, V> entry = ceilingEntry(key);
         return entry != null ? entry.getKey() : null;
     }
 
     @Override
-    public Set<Entry<K, V>> entrySet() {
-        Set<Entry<K, V>> entrySet = new HashSet<>();
+    public Set<IEntry<K, V>> entrySet() {
+        Set<IEntry<K, V>> entrySet = new HashSet<>();
         buildEntrySet(root, entrySet);
         return entrySet;
     }
 
-    private void buildEntrySet(Node<K, V> node, Set<Entry<K, V>> entrySet) {
+    private void buildEntrySet(Node<K, V> node, Set<IEntry<K, V>> entrySet) {
         if (node != null) {
             buildEntrySet(node.left, entrySet);
             entrySet.add(node);
@@ -391,7 +391,7 @@ public class TreeDictionary<K extends Comparable<K>, V> extends AbstractDictiona
     }
 
     @Override
-    public Dictionary.Entry<K, V> higherEntry(K key) {
+    public IEntry<K, V> higherEntry(K key) {
         return higherNode(root, key);
     }
 
@@ -411,7 +411,7 @@ public class TreeDictionary<K extends Comparable<K>, V> extends AbstractDictiona
 
     @Override
     public K higherKey(K key) {
-        Dictionary.Entry<K, V> entry = higherEntry(key);
+        IEntry<K, V> entry = higherEntry(key);
         return entry != null ? entry.getKey() : null;
     }
 

@@ -5,7 +5,7 @@ import java.util.Objects;
 import java.util.Set;
 
 public class HashDictionary<K, V> extends AbstractDictionary<K,V>
-        implements Dictionary<K, V> {
+        implements IDictionary<K, V> {
     private static final int DEFAULT_CAPACITY = 16;
     private static final float LOAD_FACTOR = 0.75f;
 
@@ -144,8 +144,8 @@ public class HashDictionary<K, V> extends AbstractDictionary<K,V>
     }
 
     @Override
-    public Set<Entry<K, V>> entrySet() {
-        Set<Entry<K, V>> entrySet = new HashSet<>();
+    public Set<IEntry<K, V>> entrySet() {
+        Set<IEntry<K, V>> entrySet = new HashSet<>();
         for (Node<K, V> node : buckets) {
             while (node != null) {
                 entrySet.add(node);
@@ -156,28 +156,12 @@ public class HashDictionary<K, V> extends AbstractDictionary<K,V>
     }
 
     @Override
-    public String toString() {
-        StringBuilder sb = new StringBuilder();
-        sb.append("{");
-        for (Entry<K, V> entry : buckets) {
-            if (entry != null) {
-                sb.append(entry.getKey()).append("=").append(entry.getValue()).append(", ");
-            }
-        }
-        if (sb.length() > 1) {
-            sb.setLength(sb.length() - 2); // Remove the last comma and space
-        }
-        sb.append("}");
-        return sb.toString();
-    }
-
-    @Override
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         HashDictionary<K, V> that = (HashDictionary<K, V>) o;
         if (size != that.size) return false;
-        for (Entry<K, V> entry : buckets) {
+        for (IEntry<K, V> entry : buckets) {
             if (entry != null) {
                 K key = entry.getKey();
                 V value = entry.getValue();
@@ -193,7 +177,7 @@ public class HashDictionary<K, V> extends AbstractDictionary<K,V>
     @Override
     public int hashCode() {
         int hashCode = 0;
-        for (Entry<K, V> entry : buckets) {
+        for (IEntry<K, V> entry : buckets) {
             if (entry != null) {
                 K key = entry.getKey();
                 V value = entry.getValue();
@@ -203,7 +187,7 @@ public class HashDictionary<K, V> extends AbstractDictionary<K,V>
         return hashCode;
     }
 
-    private static class Node<K, V> implements Entry<K, V> {
+    private static class Node<K, V> implements IEntry<K, V> {
         private final K key;
         private V value;
         private Node<K, V> next;

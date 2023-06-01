@@ -6,7 +6,7 @@ import java.util.Set;
 import java.util.function.BiFunction;
 import java.util.function.Function;
 
-public class IdentityHashDictionary<K, V> extends AbstractDictionary<K, V> implements Dictionary<K, V> {
+public class IdentityHashDictionary<K, V> extends AbstractDictionary<K, V> implements IDictionary<K, V> {
     private static final int DEFAULT_CAPACITY = 16;
     private static final float LOAD_FACTOR = 0.75f;
 
@@ -100,9 +100,9 @@ public class IdentityHashDictionary<K, V> extends AbstractDictionary<K, V> imple
     }
 
     @Override
-    public Set<Dictionary.Entry<K, V>> entrySet() {
-        Set<Dictionary.Entry<K, V>> entrySet = new HashSet<>();
-        for (Dictionary.Entry<K, V> entry : table) {
+    public Set<IEntry<K, V>> entrySet() {
+        Set<IEntry<K, V>> entrySet = new HashSet<>();
+        for (IEntry<K, V> entry : table) {
             if (entry != null) {
                 entrySet.add(entry);
             }
@@ -215,7 +215,7 @@ public class IdentityHashDictionary<K, V> extends AbstractDictionary<K, V> imple
         }
     }
 
-    private static class Entry<K, V> implements Dictionary.Entry<K, V> {
+    private static class Entry<K, V> implements IEntry<K, V> {
         private final K key;
         private V value;
 

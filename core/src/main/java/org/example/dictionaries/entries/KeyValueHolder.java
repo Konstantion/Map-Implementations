@@ -1,10 +1,10 @@
 package org.example.dictionaries.entries;
 
-import org.example.dictionaries.Dictionary;
+import org.example.dictionaries.IDictionary;
 
 import java.util.Objects;
 
-public class KeyValueHolder<K, V> implements Dictionary.Entry<K, V> {
+public class KeyValueHolder<K, V> implements IDictionary.IEntry<K, V> {
 
     final K key;
 
@@ -36,7 +36,7 @@ public class KeyValueHolder<K, V> implements Dictionary.Entry<K, V> {
 
     @Override
     public boolean equals(Object o) {
-        return o instanceof Dictionary.Entry<?, ?> e
+        return o instanceof IDictionary.IEntry<?, ?> e
                && key.equals(e.getKey())
                && value.equals(e.getValue());
     }

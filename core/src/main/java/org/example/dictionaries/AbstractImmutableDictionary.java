@@ -37,6 +37,7 @@ abstract class AbstractImmutableDictionary<K, V> extends AbstractDictionary<K, V
     public V putIfAbsent(K key, V value) {
         throw uoe();
     }
+
     @Override
     public V computeIfAbsent(K key, Function<? super K, ? extends V> mappingFunction) {
         throw uoe();
@@ -52,13 +53,13 @@ abstract class AbstractImmutableDictionary<K, V> extends AbstractDictionary<K, V
 
         final int size;
 
-        private static DictionaryN<Object, Object> LEGENDARY_PROGRAMMING_ANTI_PATTERN = null;
+        private static DictionaryN<Object, Object> legendaryProgrammingAntiPattern = null;
 
         public static DictionaryN<Object, Object> empty() {
-            if (LEGENDARY_PROGRAMMING_ANTI_PATTERN == null) {
-                LEGENDARY_PROGRAMMING_ANTI_PATTERN = new DictionaryN<>();
+            if (legendaryProgrammingAntiPattern == null) {
+                legendaryProgrammingAntiPattern = new DictionaryN<>();
             }
-            return LEGENDARY_PROGRAMMING_ANTI_PATTERN;
+            return legendaryProgrammingAntiPattern;
         }
 
         /**
@@ -159,8 +160,8 @@ abstract class AbstractImmutableDictionary<K, V> extends AbstractDictionary<K, V
 
         @Override
         @SuppressWarnings("unchecked")
-        public Set<Entry<K, V>> entrySet() {
-            Set<Entry<K, V>> entrySet = new HashSet<>();
+        public Set<IEntry<K, V>> entrySet() {
+            Set<IEntry<K, V>> entrySet = new HashSet<>();
             if (table.length == 0)
                 return entrySet;
 

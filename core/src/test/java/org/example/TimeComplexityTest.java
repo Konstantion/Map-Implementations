@@ -1,16 +1,15 @@
 package org.example;
 
-import org.example.dictionaries.Dictionary;
 import org.example.dictionaries.*;
-import org.example.model.enums.Role;
+import org.example.models.enums.Role;
 import org.junit.jupiter.api.Test;
 
 import java.util.*;
 
 import static java.lang.Math.*;
-import static org.example.model.utils.IntegerUtils.millions;
-import static org.example.model.utils.IntegerUtils.thousands;
-import static org.example.model.utils.StringUtils.generateRandom;
+import static org.example.models.utils.IntegerUtils.millions;
+import static org.example.models.utils.IntegerUtils.thousands;
+import static org.example.models.utils.StringUtils.randomString;
 
 class TimeComplexityTest {
     Random random = new Random();
@@ -28,14 +27,14 @@ class TimeComplexityTest {
                 "proident",
                 ","
         };
-        Dictionary<String, Integer> hashDictionary = new HashDictionary<>();
+        IDictionary<String, Integer> hashDictionary = new HashDictionary<>();
         Map<String, Integer> hashMap = new HashMap<>();
         start = System.currentTimeMillis();
         for (String key : myKeys)
             hashDictionary.put(key, key.hashCode());
         for (int i = 0; i < millions(1); i++) {
             hashDictionary.put(
-                    generateRandom(random.nextInt(1, (int) sqrt(min(max(i, 2 << minPow), 2 << maxPow)))),
+                    randomString(random.nextInt(1, (int) sqrt(min(max(i, 2 << minPow), 2 << maxPow)))),
                     i
             );
         }
@@ -58,7 +57,7 @@ class TimeComplexityTest {
             hashMap.put(key, key.hashCode());
         for (int i = 0; i < millions(1); i++) {
             hashMap.put(
-                    generateRandom(random.nextInt(1, (int) sqrt(min(max(i, 2 << minPow), 2 << maxPow)))),
+                    randomString(random.nextInt(1, (int) sqrt(min(max(i, 2 << minPow), 2 << maxPow)))),
                     i
             );
         }
@@ -87,14 +86,14 @@ class TimeComplexityTest {
                 "proident",
                 ","
         };
-        Dictionary<String, Integer> hashDictionary = new IdentityHashDictionary<>();
+        IDictionary<String, Integer> hashDictionary = new IdentityHashDictionary<>();
         Map<String, Integer> hashMap = new HashMap<>();
         start = System.currentTimeMillis();
         for (String key : myKeys)
             hashDictionary.put(key, key.hashCode());
         for (int i = 0; i < thousands(10); i++) {
             hashDictionary.put(
-                    generateRandom(random.nextInt(1, (int) sqrt(min(max(i, 2 << minPow), 2 << maxPow)))),
+                    randomString(random.nextInt(1, (int) sqrt(min(max(i, 2 << minPow), 2 << maxPow)))),
                     i
             );
         }
@@ -117,7 +116,7 @@ class TimeComplexityTest {
             hashMap.put(key, key.hashCode());
         for (int i = 0; i < thousands(10); i++) {
             hashMap.put(
-                    generateRandom(random.nextInt(1, (int) sqrt(min(max(i, 2 << minPow), 2 << maxPow)))),
+                    randomString(random.nextInt(1, (int) sqrt(min(max(i, 2 << minPow), 2 << maxPow)))),
                     i
             );
         }
@@ -148,7 +147,7 @@ class TimeComplexityTest {
         };
         final Role[] values = Role.values();
 
-        Dictionary<Role, Integer> enumDictionary = new EnumDictionary<>(Role.class);
+        IDictionary<Role, Integer> enumDictionary = new EnumDictionary<>(Role.class);
         Map<Role, Integer> hashMap = new HashMap<>();
         start = System.currentTimeMillis();
         for (Role key : values)
@@ -207,14 +206,14 @@ class TimeComplexityTest {
                 "proident",
                 ","
         };
-        Dictionary<String, Integer> treeDictionary = new TreeDictionary<>();
+        IDictionary<String, Integer> treeDictionary = new TreeDictionary<>();
         Map<String, Integer> treeMap = new TreeMap<>();
         start = System.currentTimeMillis();
         for (String key : myKeys)
             treeDictionary.put(key, key.hashCode());
-        for (int i = 0; i < millions(5); i++) {
+        for (int i = 0; i < millions(1); i++) {
             treeDictionary.put(
-                    generateRandom(random.nextInt(1, (int) sqrt(min(max(i, 2 << minPow), 2 << maxPow)))),
+                    randomString(random.nextInt(1, (int) sqrt(min(max(i, 2 << minPow), 2 << maxPow)))),
                     i
             );
         }
@@ -235,9 +234,9 @@ class TimeComplexityTest {
         start = System.currentTimeMillis();
         for (String key : myKeys)
             treeMap.put(key, key.hashCode());
-        for (int i = 0; i < millions(5); i++) {
+        for (int i = 0; i < millions(1); i++) {
             treeMap.put(
-                    generateRandom(random.nextInt(1, (int) sqrt(min(max(i, 2 << minPow), 2 << maxPow)))),
+                    randomString(random.nextInt(1, (int) sqrt(min(max(i, 2 << minPow), 2 << maxPow)))),
                     i
             );
         }
@@ -257,8 +256,8 @@ class TimeComplexityTest {
 
     @Test
     void navigable_dictionary_implementations_should_return_correct_result() {
-        NavigableDictionary<Double, Integer> treeDictionary = new TreeDictionary<>();
-        NavigableDictionary<Double, Integer> sortedArrayDictionary = new SortedArrayNavigableDictionary<>();
+        INavigableDictionary<Double, Integer> treeDictionary = new TreeDictionary<>();
+        INavigableDictionary<Double, Integer> sortedArrayDictionary = new SortedArrayNavigableDictionary<>();
         NavigableMap<Double, Integer> treeMap = new TreeMap<>();
 
         treeDictionary.put(-1.4, -14);

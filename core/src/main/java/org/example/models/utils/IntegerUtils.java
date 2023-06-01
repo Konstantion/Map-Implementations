@@ -1,4 +1,4 @@
-package org.example.model.utils;
+package org.example.models.utils;
 
 public class IntegerUtils {
     private IntegerUtils() {

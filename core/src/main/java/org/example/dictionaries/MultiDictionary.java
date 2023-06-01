@@ -6,8 +6,8 @@ import java.util.Set;
 import java.util.function.BiFunction;
 import java.util.function.Function;
 
-public class MultiDictionary<K, V> extends AbstractDictionary<K, V> implements Dictionary<K, V> {
-    private final Dictionary<K, Set<V>> dictionary;
+public class MultiDictionary<K, V> extends AbstractDictionary<K, V> implements IDictionary<K, V> {
+    private final IDictionary<K, Set<V>> dictionary;
 
     public MultiDictionary() {
         dictionary = new HashDictionary<>();
@@ -83,9 +83,9 @@ public class MultiDictionary<K, V> extends AbstractDictionary<K, V> implements D
         return (values != null && !values.isEmpty()) ? values.iterator().next() : null;
     }
 
-    public Set<Entry<K, V>> entrySet() {
-        Set<Entry<K, V>> entries = new HashSet<>();
-        for (Dictionary.Entry<K, Set<V>> entry : dictionary.entrySet()) {
+    public Set<IEntry<K, V>> entrySet() {
+        Set<IEntry<K, V>> entries = new HashSet<>();
+        for (IEntry<K, Set<V>> entry : dictionary.entrySet()) {
             K key = entry.getKey();
             Set<V> values = entry.getValue();
             for (V value : values) {
@@ -159,7 +159,7 @@ public class MultiDictionary<K, V> extends AbstractDictionary<K, V> implements D
         return null;
     }
 
-    private static class KeyValueHolder<K, V> implements Entry<K, V> {
+    private static class KeyValueHolder<K, V> implements IEntry<K, V> {
         private final K key;
         private V value;
 
@@ -186,10 +186,10 @@ public class MultiDictionary<K, V> extends AbstractDictionary<K, V> implements D
             if (this == o) {
                 return true;
             }
-            if (!(o instanceof Entry)) {
+            if (!(o instanceof IDictionary.IEntry)) {
                 return false;
             }
-            Dictionary.Entry<?, ?> entry = (Entry<?, ?>) o;
+            IEntry<?, ?> entry = (IEntry<?, ?>) o;
             return Objects.equals(key, entry.getKey()) &&
                    Objects.equals(value, entry.getValue());
         }

@@ -5,7 +5,7 @@ import java.util.Objects;
 import java.util.Set;
 
 public class TrieDictionary<K, V> extends AbstractDictionary<K, V>
-        implements Dictionary<K, V> {
+        implements IDictionary<K, V> {
     private final TrieNode root;
 
     public TrieDictionary() {
@@ -55,8 +55,8 @@ public class TrieDictionary<K, V> extends AbstractDictionary<K, V>
     }
 
     @Override
-    public Set<Entry<K, V>> entrySet() {
-        Set<Entry<K, V>> entrySet = new HashSet<>();
+    public Set<IEntry<K, V>> entrySet() {
+        Set<IEntry<K, V>> entrySet = new HashSet<>();
         root.collectEntries("", entrySet);
         return entrySet;
     }
@@ -67,8 +67,8 @@ public class TrieDictionary<K, V> extends AbstractDictionary<K, V>
         }
     }
 
-    private class TrieNode implements Entry<String, V> {
-        private final Dictionary<Character, TrieNode> children;
+    private class TrieNode implements IEntry<String, V> {
+        private final IDictionary<Character, TrieNode> children;
         private V value;
 
         public TrieNode() {
@@ -132,12 +132,12 @@ public class TrieDictionary<K, V> extends AbstractDictionary<K, V>
             return children.isEmpty() && value == null;
         }
 
-        public void collectEntries(String prefix, Set<Entry<K, V>> entrySet) {
+        public void collectEntries(String prefix, Set<IEntry<K, V>> entrySet) {
             if (value != null) {
-                entrySet.add(Dictionary.entry((K) prefix, value));
+                entrySet.add(IDictionary.entry((K) prefix, value));
             }
 
-            for (Dictionary.Entry<Character, TrieNode> entry : children.entrySet()) {
+            for (IEntry<Character, TrieNode> entry : children.entrySet()) {
                 entry.getValue().collectEntries(prefix + entry.getKey(), entrySet);
             }
         }
