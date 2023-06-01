@@ -272,6 +272,69 @@ class TimeComplexityTest {
         System.out.printf("TreeMap: %s%n%n", end - start);
     }
 
+    // On my PC
+    // TreeDictionary: 7129
+    //
+    // SortedArrayDictionary: 207048
+    @Test
+    void tree_dictionary_vs_sorted_array_dictionary_with_strings() {
+        long start, end;
+        String[] myKeys = new String[]{
+                "Lorem ",
+                "Adipiscing enim eu turpis egestas pretium aenean pharetra. Sed viverra tellus in hac. Vitae auctor eu augue ut lectus arcu bibendum at varius. Eu augue ut lectus arcu bibendum at varius vel pharetra. Duis convallis convallis tellus id interdum velit laoreet id donec. Auctor urna nunc id cursus metus aliquam eleifend mi. Vestibulum rhoncus est pellentesque elit ullamcorper dignissim cras tincidunt lobortis. Quis varius quam quisque id diam vel quam elementum pulvinar. Penatibus et magnis dis parturient montes nascetur. Aenean pharetra magna ac placerat vestibulum lectus mauris ultrices eros. Adipiscing vitae proin sagittis nisl rhoncus mattis rhoncus urna. Venenatis urna cursus eget nunc scelerisque. Scelerisque eleifend donec pretium vulputate sapien nec sagittis aliquam malesuada. Amet justo donec enim diam vulputate ut pharetra sit. ",
+                " dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua",
+                "Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non",
+                "proident",
+                ","
+        };
+        IDictionary<String, Integer> treeDictionary = new TreeDictionary<>();
+        IDictionary<String, Integer> arrayDictionary = new SortedArrayNavigableDictionary<>();
+        start = System.currentTimeMillis();
+        for (String key : myKeys)
+            treeDictionary.put(key, key.hashCode());
+        for (int i = 0; i < millions(1); i++) {
+            treeDictionary.put(
+                    randomString(random.nextInt(1, (int) sqrt(min(max(i, 2 << minPow), 2 << maxPow)))),
+                    i
+            );
+        }
+
+        for (int i = 0; i < millions(1); i++) {
+            treeDictionary.get(myKeys[0]);
+            treeDictionary.remove(myKeys[2]);
+            treeDictionary.get(myKeys[2]);
+            treeDictionary.put(myKeys[2], 2 << 2);
+            treeDictionary.get(myKeys[3]);
+            treeDictionary.computeIfPresent(myKeys[3], (k, v) -> v);
+            treeDictionary.containsKey(myKeys[4]);
+        }
+
+        end = System.currentTimeMillis();
+        System.out.printf("TreeDictionary: %s%n%n", end - start);
+
+        start = System.currentTimeMillis();
+        for (String key : myKeys)
+            arrayDictionary.put(key, key.hashCode());
+        for (int i = 0; i < millions(1); i++) {
+            arrayDictionary.put(
+                    randomString(random.nextInt(1, (int) sqrt(min(max(i, 2 << minPow), 2 << maxPow)))),
+                    i
+            );
+        }
+        for (int i = 0; i < millions(1); i++) {
+            arrayDictionary.get(myKeys[0]);
+            arrayDictionary.remove(myKeys[2]);
+            arrayDictionary.get(myKeys[2]);
+            arrayDictionary.put(myKeys[2], 2 << 2);
+            arrayDictionary.get(myKeys[3]);
+            arrayDictionary.computeIfPresent(myKeys[3], (k, v) -> v);
+            arrayDictionary.containsKey(myKeys[4]);
+        }
+
+        end = System.currentTimeMillis();
+        System.out.printf("SortedArrayDictionary: %s%n%n", end - start);
+    }
+
     @Test
     void navigable_dictionary_implementations_should_return_correct_result() {
         INavigableDictionary<Double, Integer> treeDictionary = new TreeDictionary<>();
