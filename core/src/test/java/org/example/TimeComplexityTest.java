@@ -36,7 +36,7 @@ class TimeComplexityTest {
         start = System.currentTimeMillis();
         for (String key : myKeys)
             hashDictionary.put(key, key.hashCode());
-        for (int i = 0; i < millions(1); i++) {
+        for (int i = 0; i < thousands(1_500); i++) {
             hashDictionary.put(
                     randomString(random.nextInt(1, (int) sqrt(min(max(i, 2 << minPow), 2 << maxPow)))),
                     i
@@ -59,7 +59,7 @@ class TimeComplexityTest {
         start = System.currentTimeMillis();
         for (String key : myKeys)
             hashMap.put(key, key.hashCode());
-        for (int i = 0; i < millions(1); i++) {
+        for (int i = 0; i < thousands(1_500); i++) {
             hashMap.put(
                     randomString(random.nextInt(1, (int) sqrt(min(max(i, 2 << minPow), 2 << maxPow)))),
                     i
@@ -229,7 +229,7 @@ class TimeComplexityTest {
         start = System.currentTimeMillis();
         for (String key : myKeys)
             treeDictionary.put(key, key.hashCode());
-        for (int i = 0; i < millions(1); i++) {
+        for (int i = 0; i < millions(2); i++) {
             treeDictionary.put(
                     randomString(random.nextInt(1, (int) sqrt(min(max(i, 2 << minPow), 2 << maxPow)))),
                     i
@@ -252,7 +252,7 @@ class TimeComplexityTest {
         start = System.currentTimeMillis();
         for (String key : myKeys)
             treeMap.put(key, key.hashCode());
-        for (int i = 0; i < millions(1); i++) {
+        for (int i = 0; i < millions(2); i++) {
             treeMap.put(
                     randomString(random.nextInt(1, (int) sqrt(min(max(i, 2 << minPow), 2 << maxPow)))),
                     i

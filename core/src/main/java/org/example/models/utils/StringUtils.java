@@ -16,4 +16,14 @@ public class StringUtils {
 
         return new String(array, StandardCharsets.UTF_8);
     }
+
+    public static String randomAlphabeticString(int length) {
+        int leftLimit = 97;
+        int rightLimit = 122;
+
+        return random.ints(leftLimit, rightLimit + 1)
+                .limit(length)
+                .collect(StringBuilder::new, StringBuilder::appendCodePoint, StringBuilder::append)
+                .toString();
+    }
 }

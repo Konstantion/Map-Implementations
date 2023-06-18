@@ -4,14 +4,21 @@ package org.example;
 import org.example.dictionaries.*;
 
 import java.security.SecureRandom;
+import java.util.HashMap;
+import java.util.Map;
 import java.util.Random;
 
+import static java.lang.Math.*;
+import static java.lang.Math.max;
+import static org.example.models.utils.IntegerUtils.*;
+import static org.example.models.utils.StringUtils.randomAlphabeticString;
 import static org.example.models.utils.StringUtils.randomString;
 
 public class Main {
     private static final Random random = new SecureRandom();
 
     public static void main(String[] args) {
+        test();
         //Dictionary initialization
         HashDictionary<Number, String> hashDictionary = new HashDictionary<>();
         IdentityHashDictionary<Number, String> identityHashDictionary = new IdentityHashDictionary<>();
@@ -116,7 +123,7 @@ public class Main {
     ) {
         for (int i = 0; i < quantity; i++) {
             K key = (K) Double.valueOf(random.nextDouble());
-            V value = (V) randomString(4);
+            V value = (V) randomAlphabeticString(4);
             dictionary.put(key, value);
         }
 
@@ -135,5 +142,65 @@ public class Main {
             K key
     ) {
         return dictionary.higherKey(key);
+    }
+
+    public static void test() {
+        final int minPow = 4;
+        final int maxPow = 16;
+        long start, end;
+        String[] myKeys = new String[]{
+                "Lorem ",
+                "Adipiscing enim eu turpis egestas pretium aenean pharetra. Sed viverra tellus in hac. Vitae auctor eu augue ut lectus arcu bibendum at varius. Eu augue ut lectus arcu bibendum at varius vel pharetra. Duis convallis convallis tellus id interdum velit laoreet id donec. Auctor urna nunc id cursus metus aliquam eleifend mi. Vestibulum rhoncus est pellentesque elit ullamcorper dignissim cras tincidunt lobortis. Quis varius quam quisque id diam vel quam elementum pulvinar. Penatibus et magnis dis parturient montes nascetur. Aenean pharetra magna ac placerat vestibulum lectus mauris ultrices eros. Adipiscing vitae proin sagittis nisl rhoncus mattis rhoncus urna. Venenatis urna cursus eget nunc scelerisque. Scelerisque eleifend donec pretium vulputate sapien nec sagittis aliquam malesuada. Amet justo donec enim diam vulputate ut pharetra sit. ",
+                " dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua",
+                "Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non",
+                "proident",
+                ","
+        };
+        IDictionary<String, Integer> hashDictionary = new HashDictionary<>();
+        Map<String, Integer> hashMap = new HashMap<>();
+        start = System.currentTimeMillis();
+        for (String key : myKeys)
+            hashDictionary.put(key, key.hashCode());
+        for (int i = 0; i < thousands(10); i++) {
+            hashDictionary.put(
+                    randomString(random.nextInt(1, (int) sqrt(min(max(i, 2 << minPow), 2 << maxPow)))),
+                    i
+            );
+        }
+
+        for (int i = 0; i < millions(1); i++) {
+            hashDictionary.get(myKeys[0]);
+            hashDictionary.remove(myKeys[2]);
+            hashDictionary.get(myKeys[2]);
+            hashDictionary.put(myKeys[2], 2 << 2);
+            hashDictionary.get(myKeys[3]);
+            hashDictionary.computeIfPresent(myKeys[3], (k, v) -> v);
+            hashDictionary.containsKey(myKeys[4]);
+        }
+
+        end = System.currentTimeMillis();
+        System.out.printf("HashDictionary: %s%n%n", end - start);
+
+        start = System.currentTimeMillis();
+        for (String key : myKeys)
+            hashMap.put(key, key.hashCode());
+        for (int i = 0; i < thousands(10); i++) {
+            hashMap.put(
+                    randomString(random.nextInt(1, (int) sqrt(min(max(i, 2 << minPow), 2 << maxPow)))),
+                    i
+            );
+        }
+        for (int i = 0; i < millions(1); i++) {
+            hashMap.get(myKeys[0]);
+            hashMap.remove(myKeys[2]);
+            hashMap.get(myKeys[2]);
+            hashMap.put(myKeys[2], 2 << 2);
+            hashMap.get(myKeys[3]);
+            hashMap.computeIfPresent(myKeys[3], (k, v) -> v);
+            hashMap.containsKey(myKeys[4]);
+        }
+
+        end = System.currentTimeMillis();
+        System.out.printf("HashMap: %s%n%n", end - start);
     }
 }
