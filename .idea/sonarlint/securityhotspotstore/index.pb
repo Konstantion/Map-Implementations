@@ -98,3 +98,7 @@ w
 Gcore/src/main/java/org/example/dictionaries/entries/KeyValueHolder.java,6\0\6089c9266f27577b516d801f452c5ac9a0817eb2
 |
 Lcore/src/main/java/org/example/dictionaries/AbstractImmutableDictionary.java,4\d\4d7cde5fee0319d64f2cd51672f57c57364f45e2
+l
+<core/src/main/java/org/example/models/utils/StringUtils.java,e\a\ea492efa6e6036e330e8efc4f13a1b79bbe8216b
+f
+6core/src/test/java/org/example/TimeComplexityTest.java,2\b\2b9eb440eb28a363852e0bc2a089e4d12d17e2d0
